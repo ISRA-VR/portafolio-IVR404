@@ -1,16 +1,29 @@
-# React + Vite
+# Portafolio de Israel Valerdi
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Portafolio personal construido con React y Vite. Los perfiles sociales, habilidades y fichas de proyectos se editan en `src/data/portfolioData.js`.
 
-Currently, two official plugins are available:
+## Desarrollo local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Para validar la versión de producción:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run lint
+npm run build
+npm run preview
+```
 
-## Expanding the Oxlint configuration
+## Despliegue en Vercel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Importa el repositorio de GitHub en Vercel y configura:
+
+- Root Directory: `portafolio-isra`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+- Install Command: `npm install`
+
+Asocia `isra-vr.dev` al proyecto desde **Settings → Domains** en Vercel y configura los registros DNS indicados por Vercel. El dominio canónico ya está establecido en `index.html`.
