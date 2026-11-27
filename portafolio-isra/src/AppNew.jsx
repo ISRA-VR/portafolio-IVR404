@@ -5,7 +5,7 @@ import ProjectsSection from './components/ProjectsSection'
 import DevInspector from './components/DevInspector'
 import ContactSection from './components/ContactSection'
 import { profile } from './data/portfolioData'
-import cvFileUrl from './assets/CV ISRAEL VALERDI Desarrollador Web Jr.pdf?url'
+import cvFileUrl from './assets/CV_Israel_Valerdi.pdf?url'
 import './AppNew.css'
 import './AppFeatures.css'
 
