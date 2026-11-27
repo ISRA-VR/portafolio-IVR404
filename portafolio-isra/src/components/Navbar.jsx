@@ -4,6 +4,8 @@ import { socialLinks } from '../data/portfolioData'
 
 const links = [
   { label: 'Inicio', href: '#inicio' },
+  { label: 'Educación', href: '#educacion' },
+  { label: 'Servicios', href: '#servicios' },
   { label: 'Proyectos', href: '#proyectos' },
   { label: 'Habilidades', href: '#habilidades' },
   { label: 'Asistente', href: '#inspector' },
@@ -17,7 +19,7 @@ export default function Navbar() {
   return (
     <header className="site-header">
       <a className="brand" href="#inicio" onClick={closeMenu} aria-label="Israel Valerdi, inicio">
-        <span className="brand-mark">IV</span>
+        <img className="brand-logo" src="/favicon isra.svg" alt="logo de Israel Valerdi" aria-hidden="true" height="32" width="32" />
         <span>Israel <b>Valerdi</b></span>
       </a>
       <nav className={menuOpen ? 'is-open' : ''} aria-label="Navegación principal">

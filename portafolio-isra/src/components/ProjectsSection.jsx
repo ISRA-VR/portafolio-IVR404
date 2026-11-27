@@ -79,7 +79,7 @@ export default function ProjectsSection() {
   return (
     <section className="projects section-frame" id="proyectos">
       <SectionHeading
-        eyebrow="03 / Proyectos"
+        eyebrow="05 / Proyectos"
         title={<>Lo que estoy <span>construyendo.</span></>}
         copy=""
       />
@@ -91,13 +91,28 @@ export default function ProjectsSection() {
                 <ProjectVisual project={project} />
               </button>
               <div className="project-content">
-                <div className="project-meta"><span>{project.eyebrow}</span><span className="status-dot">{project.status}</span></div>
+                <div className="project-meta">
+                  <span>{project.eyebrow}</span>
+                  <span className="project-sequence">{String(index + 1).padStart(2, '0')}/{projects.length}</span>
+                </div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <div className="tag-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
-                <button className="project-detail-link" type="button" onClick={() => openProject(project)}>
-                  Ficha técnica <Icon name="arrowUpRight" size={15} />
-                </button>
+                <div className="project-card-actions">
+                  <button className="project-detail-link" type="button" onClick={() => openProject(project)}>
+                    Ficha técnica <Icon name="arrowUpRight" size={15} />
+                  </button>
+                  {project.demo && (
+                    <a className="project-demo-link" href={project.demo} target="_blank" rel="noreferrer">
+                      Ver demo <Icon name="arrowUpRight" size={14} />
+                    </a>
+                  )}
+                  {project.demoNote && (
+                    <span className="project-demo-pending">
+                      {project.demo ? 'Acceso a demo:' : 'Demo:'} {project.demoNote}
+                    </span>
+                  )}
+                </div>
               </div>
             </article>
           ))}
@@ -123,14 +138,16 @@ export default function ProjectsSection() {
               <h2 id="project-modal-title">{selected.title}</h2>
               <p>{selected.description}</p>
               <div className="project-detail-grid">
-                <div><h3>Rol</h3><p>{selected.role}</p></div>
+                <div><h3>Mi aportación</h3><p>{selected.contribution}</p></div>
+                <div><h3>Equipo</h3><p>{selected.teamContribution}</p></div>
                 <div><h3>Arquitectura</h3><p>{selected.architecture}</p></div>
                 <div><h3>Decisiones técnicas</h3><p>{selected.decisions}</p></div>
                 <div><h3>Stack</h3><div className="tag-list">{selected.stack.map((item) => <span key={item}>{item}</span>)}</div></div>
               </div>
               <div className="project-modal-links">
-                {selected.demo ? <a href={selected.demo} target="_blank" rel="noreferrer">Ver demo <Icon name="arrowUpRight" size={15} /></a> : <span>Demo: pendiente de publicar</span>}
-                {selected.repository ? <a href={selected.repository} target="_blank" rel="noreferrer">Repositorio <Icon name="github" size={15} /></a> : <span>Repositorio: pendiente de publicar</span>}
+                {selected.demo && <a href={selected.demo} target="_blank" rel="noreferrer">Ver demo <Icon name="arrowUpRight" size={15} /></a>}
+                {selected.demoNote && <span className="project-demo-pending">{selected.demoNote}</span>}
+                {selected.repository && <a href={selected.repository} target="_blank" rel="noreferrer">Repositorio <Icon name="github" size={15} /></a>}
               </div>
             </div>
           </section>

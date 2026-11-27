@@ -5,21 +5,24 @@ import { profile, projects, skillAreas, socialLinks } from '../data/portfolioDat
 
 const suggestedQuestions = [
   '¿Quién es Israel?',
-  '¿Qué tipo de soluciones construye?',
+  '¿Qué servicios ofrece?',
   '¿Qué proyectos ha desarrollado?',
-  '¿Qué usa para frontend?',
-  '¿Qué usa para backend?',
+  '¿Qué tecnologías usa para frontend?',
+  '¿Qué tecnologías usa para backend?',
   '¿Cómo trabaja con APIs y bases de datos?',
-  '¿Qué experiencia tiene con IA?',
-  '¿Qué sabe de SEO y analítica?',
+  '¿Qué nivel tiene en cada habilidad?',
+  '¿Qué tecnologías usó en Zapatería?',
   '¿Cuáles son sus metas profesionales?',
   '¿Cómo puedo contactarlo?',
 ]
 
 const normalizeText = (text) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+const describeSkills = (area) => area.items
+  .map((item) => `${item.name} (${item.level}; proyecto: ${item.project})`)
+  .join(', ')
 
 function describeProject(project) {
-  return `${project.title}\n${project.description}\nRol: ${project.role}.\nStack: ${project.stack.join(', ')}.\nArquitectura: ${project.architecture}\nDecisiones: ${project.decisions}`
+  return `${project.title}\n${project.description}\nMi aportación: ${project.contribution}.\nEquipo: ${project.teamContribution}.\nStack: ${project.stack.join(', ')}.\nArquitectura: ${project.architecture}\nDecisiones: ${project.decisions}`
 }
 
 function getAgentResponse(question) {
@@ -36,7 +39,11 @@ function getAgentResponse(question) {
   if (selectedProject) return describeProject(selectedProject)
 
   if (/(solucion|que hace|construye|tipo de trabajo|que desarrolla)/.test(query)) {
-    return 'Israel construye sitios web enfocados en la experiencia del usuario, tiendas en línea y sistemas administrativos a la medida. Combina desarrollo Full-Stack con SEO, herramientas de Google, automatización e inteligencia artificial para proponer soluciones prácticas.'
+    return 'Israel ha trabajado en proyectos de sitios y aplicaciones web, tiendas en línea y sistemas de gestión. Consulta la sección de servicios para ver qué ofrece como freelance.'
+  }
+
+  if (/(servicio|freelance|precio|costo|cotizacion)/.test(query)) {
+    return 'Ofrece sitios web responsivos, interfaces para tiendas en línea y sistemas administrativos para emprendedores y pequeños negocios. El precio es a convenir.'
   }
 
   if (/(quien|perfil|sobre israel|acerca|a que se dedica|profesion\b|ocupacion|que rol|full.?stack)/.test(query)) {
@@ -53,8 +60,8 @@ function getAgentResponse(question) {
 
   if (/(api|endpoint)/.test(query) && /(bases? de datos|database|mysql|postgres|tidb|sqlite|crud)/.test(query)) {
     const api = skillAreas.find((area) => area.title === 'APIs')
-    const database = skillAreas.find((area) => area.title === 'Database')
-    return `En APIs trabaja con ${api ? api.items.join(', ') : 'consumo e integración de APIs'}. Para persistencia conoce ${database ? database.items.join(', ') : 'bases de datos relacionales'}.`
+    const database = skillAreas.find((area) => area.title === 'Bases de datos')
+    return `APIs: ${api ? describeSkills(api) : 'sin datos disponibles'}. Bases de datos: ${database ? describeSkills(database) : 'sin datos disponibles'}.`
   }
 
   if (/(arquitect|estructura|decisiones tecnicas|como esta hecho|como esta hecha|como se construyo)/.test(query)) {
@@ -62,7 +69,7 @@ function getAgentResponse(question) {
   }
 
   if (/(meta|objetivo|futuro|crecer|aspiracion|especializar)/.test(query)) {
-    return 'Su meta profesional es desarrollarse como Full-Stack Developer y especialista en soluciones digitales, seguir fortaleciendo frontend, backend, bases de datos y despliegue, y aplicar ese aprendizaje en proyectos reales.'
+    return 'Su meta profesional es desarrollarse como programador Full-Stack y especialista en soluciones digitales, seguir fortaleciendo frontend, backend y bases de datos, y aplicar ese aprendizaje en proyectos reales.'
   }
 
   if (/(contact|correo|email|whatsapp|contrat|hablar|vacante|oportunidad|empleo|colaborar)/.test(query)) {
@@ -75,56 +82,43 @@ function getAgentResponse(question) {
   }
 
   if (/(ia|inteligencia artificial|agente|automatiz)/.test(query)) {
-    const area = skillAreas.find((item) => item.title === 'IA')
-    const project = projects.find((item) => normalizeText(item.title).includes('zapateria'))
-    return `${area ? `${area.title}: ${area.items.join(', ')}. ` : ''}${project ? `En ${project.title}, plantea integrar un agente de IA para consultas y automatización de tareas.` : 'Explora cómo integrar IA en páginas y sitios.'}`
+    return 'El portafolio no documenta proyectos ni experiencia de Israel con inteligencia artificial.'
   }
 
-  if (/(seo|analitica|analytics|tag manager|wordpress|migracion|sitios web)/.test(query)) {
-    const areas = skillAreas.filter((area) => ['Web', 'IA'].includes(area.title))
-    return `Su trabajo web también incluye SEO, herramientas de Google y migración:\n${areas.map((area) => `• ${area.title}: ${area.items.join(', ')}`).join('\n')}`
-  }
-
-  if (/(diseno|figma|miro|canva|stitch|interfaz|experiencia de usuario|ux|ui)/.test(query)) {
-    const design = skillAreas.find((area) => area.title === 'Diseño')
-    return `En diseño y experiencia de usuario, conoce ${design ? design.items.join(', ') : 'herramientas de diseño'}. También considera la adaptabilidad de las interfaces.`
+  if (/(seo|analitica|analytics|tag manager|wordpress|migracion)/.test(query)) {
+    return 'El portafolio no documenta experiencia o proyectos relacionados con SEO, analítica, Tag Manager, WordPress ni migraciones.'
   }
 
   if (/(seguridad|autenticacion|jwt|validacion)/.test(query)) {
-    const security = skillAreas.find((area) => area.title === 'Seguridad')
-    return `En seguridad trabaja con ${security ? security.items.join(', ') : 'autenticación y validaciones'}, según las necesidades del proyecto.`
+    const security = skillAreas.find((area) => area.items.some((item) => item.name === 'JWT'))
+    return security ? `Seguridad: ${describeSkills({ items: security.items.filter((item) => item.name === 'JWT') })}.` : 'El portafolio no detalla experiencia en seguridad.'
   }
 
   if (/(bases? de datos|database|mysql|postgres|tidb|sqlite|crud|modelo relacional)/.test(query)) {
-    const database = skillAreas.find((area) => area.title === 'Database')
-    return `En bases de datos conoce ${database ? database.items.join(', ') : 'bases de datos relacionales'}. En sus proyectos aplica estos conocimientos según el contexto; por ejemplo, usa SQLite en Math-Climber GAME.`
+    const database = skillAreas.find((area) => area.title === 'Bases de datos')
+    return `Tecnologías de bases de datos: ${database ? describeSkills(database) : 'sin datos disponibles'}.`
   }
 
   if (/(api|endpoint|integracion)/.test(query)) {
     const api = skillAreas.find((area) => area.title === 'APIs')
-    return `Su trabajo con APIs incluye ${api ? api.items.join(', ') : 'consumo e integración de APIs'}. También desarrolla backend con Node.js, FastAPI y Python.`
-  }
-
-  if (/(deployment|despliegue|vercel|railway|cloud|nube|aws|produccion)/.test(query)) {
-    const deployment = skillAreas.find((area) => area.title === 'Deployment')
-    return `En despliegue y entornos de desarrollo conoce ${deployment ? deployment.items.join(', ') : 'plataformas de despliegue'}.`
+    return `Sus proyectos incluyen ${api ? describeSkills(api) : 'APIs REST'}.`
   }
 
   if (/(frontend|front end|interfaz|javascript|react|vue|css|html)/.test(query)) {
     const frontend = skillAreas.find((area) => area.title === 'Frontend')
-    return `En frontend trabaja con ${frontend ? frontend.items.join(', ') : 'tecnologías web'}, creando interfaces adaptables y centradas en las necesidades de los usuarios.`
+    return `Frontend: ${frontend ? describeSkills(frontend) : 'sin datos disponibles'}.`
   }
 
-  if (/(backend|back end|servidor|python|fastapi|node|php|java)/.test(query)) {
+  if (/(backend|back end|servidor|python|node|php|laravel|express)/.test(query)) {
     const backend = skillAreas.find((area) => area.title === 'Backend')
-    return `En backend conoce ${backend ? backend.items.join(', ') : 'tecnologías de servidor'}, además de consumo e integración de APIs y bases de datos.`
+    return `Backend: ${backend ? describeSkills(backend) : 'sin datos disponibles'}.`
   }
 
   if (/(tecnologia|habilidad|stack|lenguaje|herramienta)/.test(query)) {
-    return `Su stack reúne varias áreas:\n${skillAreas.map((area) => `• ${area.title}: ${area.items.join(', ')}`).join('\n')}`
+    return `Tecnologías registradas:\n${skillAreas.map((area) => `• ${area.title}: ${describeSkills(area)}`).join('\n')}`
   }
 
-  return 'Puedo responder preguntas sobre su perfil, proyectos, stack, frontend, backend, APIs, bases de datos, seguridad, diseño, IA, SEO, metas y contacto. Por ejemplo: “¿Cómo está hecha la zapatería?” o “¿Qué usa para backend?”'
+  return 'Puedo responder preguntas sobre su perfil, proyectos, habilidades y contacto. Por ejemplo: “¿Qué tecnologías usa para backend?” o “¿Cómo está hecha la zapatería?”'
 }
 
 export default function DevInspector() {
@@ -213,7 +207,7 @@ export default function DevInspector() {
   return (
     <section className="inspector section-frame" id="inspector">
       <SectionHeading
-        eyebrow="04 / Conoce a Israel"
+        eyebrow="06 / Conoce a Israel"
         title={<>Asistente del <span>portafolio.</span></>}
         copy="Una forma rápida e interactiva de conocer mi perfil, lo que hago y los proyectos que he desarrollado."
       />
@@ -225,7 +219,7 @@ export default function DevInspector() {
             <small><i /> Asistente disponible</small>
           </div>
           <div className="agent-header-actions">
-            <span className="agent-badge">AI PROFILE</span>
+            <span className="agent-badge">PERFIL IA</span>
             <button type="button" className="agent-clear-button" onClick={clearChat} aria-label="Limpiar chat" title="Limpiar chat">
               <Icon name="trash" size={15} /><span>Limpiar chat</span>
             </button>

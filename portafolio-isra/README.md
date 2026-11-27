@@ -2,6 +2,8 @@
 
 Portafolio personal construido con React y Vite. Los perfiles sociales, habilidades y fichas de proyectos se editan en `src/data/portfolioData.js`.
 
+Los textos que requieren confirmación personal están marcados como `[PENDIENTE: ...]`; complétalos en `src/AppNew.jsx` y `src/data/portfolioData.js`. El CV se mantiene en `src/assets/` y se importa como recurso estático de Vite para descargarlo como `CV_Israel_Valerdi.pdf`. El formulario de contacto envía los mensajes mediante FormSubmit a la dirección definida en `profile.email`; hay que confirmar el primer correo de activación que envíe FormSubmit.
+
 ## Desarrollo local
 
 ```bash
