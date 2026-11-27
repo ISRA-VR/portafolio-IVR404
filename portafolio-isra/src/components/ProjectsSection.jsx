@@ -25,13 +25,15 @@ function ProjectVisual({ project, imageIndex = 0, onMove }) {
           </div>
         </div>
       )}
-      <span className="visual-caption">{String(imageIndex + 1).padStart(2, '0')} / {project.images.length}</span>
       {onMove && (
-        <div className="modal-gallery-controls" role="group" aria-label="Galería del proyecto">
-          <button type="button" onClick={(event) => { event.stopPropagation(); onMove(-1) }} aria-label="Imagen anterior"><Icon name="chevronLeft" size={17} /></button>
-          <span>{project.images[imageIndex]}</span>
-          <button type="button" onClick={(event) => { event.stopPropagation(); onMove(1) }} aria-label="Siguiente imagen"><Icon name="chevronRight" size={17} /></button>
-        </div>
+        <>
+          <span className="visual-caption">{String(imageIndex + 1).padStart(2, '0')} / {project.images.length}</span>
+          <div className="modal-gallery-controls" role="group" aria-label="Galería del proyecto">
+            <button type="button" onClick={(event) => { event.stopPropagation(); onMove(-1) }} aria-label="Imagen anterior"><Icon name="chevronLeft" size={17} /></button>
+            <span>{project.images[imageIndex]}</span>
+            <button type="button" onClick={(event) => { event.stopPropagation(); onMove(1) }} aria-label="Siguiente imagen"><Icon name="chevronRight" size={17} /></button>
+          </div>
+        </>
       )}
     </div>
   )

@@ -74,8 +74,11 @@ function App() {
             <div>
               <span className="eyebrow">En curso</span>
               <h3>Ingeniería en Desarrollo de Software Multiplataforma</h3>
+              <p>Universidad Tecnológica de Tecamachalco</p>
               <div className="education-details">
-                <span>Periodo: 2026–2027</span>
+                <span>Periodo: 2026–2028</span>
+                <span>Avance: cuatrimestre 07 (de 12)</span>
+                <span>Egreso previsto: 2028</span>
               </div>
             </div>
           </article>
@@ -102,7 +105,7 @@ function App() {
           <div className="service-grid">
             <article className="service-card">
               <span className="eyebrow">01</span>
-              <h3>Sitios web hibridos</h3>
+              <h3>Sitios web adaptables</h3>
               <p>Páginas web adaptables a dispositivos móviles y de escritorio.</p>
             </article>
             <article className="service-card">

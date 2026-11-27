@@ -22,7 +22,7 @@ export const profile = {
   bio: 'Soy estudiante de Ingeniería en Desarrollo de Software Multiplataforma en Puebla, México. En mis proyectos he trabajado en interfaces web, aplicaciones de gestión, lógica de servidor y bases de datos.',
 }
 
-const skillLevelPending = 'Avanzado'
+const skillLevelPending = 'Aprendiendo'
 const skillLevelIntermediate = 'Intermedio'
 const skillLevelBeginner = 'Básico'
 
@@ -31,9 +31,9 @@ export const skillAreas = [
     title: 'Frontend',
     icon: 'code',
     items: [
-      { name: 'HTML', level: skillLevelPending, project: 'Gym Buddy + Fit Partner; Zapatería' },
-      { name: 'CSS', level: skillLevelPending, project: 'Gym Buddy + Fit Partner; Zapatería' },
-      { name: 'JavaScript', level: skillLevelPending, project: 'Gym Buddy + Fit Partner; Zapatería' },
+      { name: 'HTML', level: 'Avanzado', project: 'Gym Buddy + Fit Partner; Zapatería' },
+      { name: 'CSS', level: 'Avanzado', project: 'Gym Buddy + Fit Partner; Zapatería' },
+      { name: 'JavaScript', level: 'Avanzado', project: 'Gym Buddy + Fit Partner; Zapatería' },
       { name: 'React', level: skillLevelIntermediate, project: 'NOVA-SHOP; Zapatería' },
       { name: 'Bootstrap', level: skillLevelIntermediate, project: 'Gym Buddy + Fit Partner; NOVA-SHOP; Zapatería' },
     ],
@@ -52,10 +52,9 @@ export const skillAreas = [
     title: 'Bases de datos',
     icon: 'database',
     items: [
-      { name: 'MySQL', level: skillLevelPending, project: 'Zapatería; Gym Buddy + Fit Partner' },
-      { name: 'PostgreSQL', level: skillLevelPending, project: 'NOVA-SHOP' },
-      { name: 'MongoDB', level: skillLevelIntermediate, project: 'Pruebas Personales' },
-      { name: 'SQLite', level: skillLevelPending, project: 'Math-Climber GAME' },
+      { name: 'MySQL', level: skillLevelIntermediate, project: 'Zapatería; Gym Buddy + Fit Partner' },
+      { name: 'PostgreSQL', level: skillLevelIntermediate, project: 'NOVA-SHOP' },
+      { name: 'SQLite', level: skillLevelIntermediate, project: 'Math-Climber GAME' },
     ],
   },
   {
@@ -102,7 +101,7 @@ export const projects = [
     title: 'Inventario y punto de venta — Zapatería',
     eyebrow: 'Administración de inventario · Ventas y stock',
     description: 'Sistema de gestión de inventario para una zapatería, con administración de productos, variantes, tallas y usuarios.',
-    contribution: 'Diseñe el diseño de las interfaces, la implementacion del frontend con React y Bootstrap, y la creación de la API REST con Node.js y Express para la gestión de inventario y ventas, concluida con el despliegue en Vercel.',
+    contribution: 'Colaboración en el diseño de las interfaces, la implementacion del frontend con React y Bootstrap, y la creación de la API REST con Node.js y Express para la gestión de inventario y ventas, concluida con el despliegue en Vercel.',
     teamContribution: 'M.A.Y.I.E',
     stack: ['React', 'Bootstrap', 'Node.js', 'Express', 'MySQL', 'JWT'],
     architecture: 'Frontend React → API REST con Node.js y Express → MySQL.',
